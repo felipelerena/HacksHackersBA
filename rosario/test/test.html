@@ -7,6 +7,22 @@
 
     <script>
     var pop = null;
+    var restauracion = '';
+    
+    function showMaestro(maestro_id){
+	var maestros = Array('./carlos.webm');
+	var video_url = maestros[maestro_id];
+        var video = '<h2>maestro:</h2><video id="video_maestro_' + maestro_id +'" controls style="float:left" autoplay="true"><source src=" ' + video_url + '"></source></video><br><a href="#" onClick="restaurar()">cerrar</a>';
+	restauracion = $('#right').html();
+	pop.pause()
+	$('#right').html(video);
+	
+    }
+    
+    function restaurar(){
+	$('#right').html(restauracion);
+	pop.play()
+    }
 
     function gotoAndPlay(start){
 	pop.currentTime([start]);
@@ -70,14 +86,21 @@
 	  Popcorn.plugin( "shortener" , function( options ) {
 	    return {
 	      start: function( event, options ) {
-	          gotoAndPlay(options.start)
+		  var version_larga = $('#version_larga');
+		  console.log(version_larga);
+		  if(!version_larga.prop("checked")){
+	          	gotoAndPlay(options.start);
+                  }
 	      },
 	      end: function( event, options ) {
-		  if(options.next_start) {
-                  	gotoAndPlay(options.next_start);
-		  } else {
-		      this.pause()
-		  }
+		  var version_larga = $('#version_larga');
+                  if(!version_larga.prop("checked")){
+		      if(options.next_start) {
+	                  gotoAndPlay(options.next_start);
+		      } else {
+		          this.pause();
+		      }
+                  }
 	      }
 	    };
 	  });
@@ -95,7 +118,7 @@
 
     elements = [
 	{
-	    start: 2,
+	    start: 0,
 	    end: 5,
 	    callback: change_text,
 	    title: "una historia",
@@ -110,10 +133,10 @@
 	},
 	{
 	    start: 25,
-	    end: 27,
+	    end: 1000,
 	    callback: change_text,
 	    title: "personalizar",
-	    html: "personalizar!"
+	    html: '<a href="#" onClick="showMaestro(0)">Ver video de maestro</a>'
 	}
     ]
 
@@ -133,12 +156,16 @@
   </head>
   <body>
 
-    <video id="video" controls style="float:left">
-      <source src="./html.webm"></source>
+    <video id="video" controls style="float:left;height:380px">
+      <source src="./carlos.webm"></source>
     </video>
 
-    <div id="right" style="float:left;height:300px"> </div>
+    <div id="right" style="float:left;height:380px"> </div>
     <div style="clear:both"></div>
+    <div id="controls">
+        <label for="version_larga">Version larga</label>
+	<input type="checkbox" id="version_larga">
+    </div>
     <div id="thumbs"></div>
     
   </body>
