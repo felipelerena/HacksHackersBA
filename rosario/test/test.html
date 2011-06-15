@@ -2,34 +2,39 @@
 <html>
   <head>
 
-    <script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+    <script src="javascript/popcorn.js"></script>
+    <script src="javascript/jquery-1.6.1.min.js"></script>
+
     <script>
-    
-    function alertar(mensaje) {
-       	alert(mensaje);
+    function change_text(video, options) {
+       	$('#right').html(options.html)
     }
+
+    function clear_text(video, options) {
+       	$('#right').html("")
+    }
+
+    function populate(pop, elements) {
+	for(element in elements) {
+	    pop.interventor(elements[element]);
+	}
+    }
+
     (function(Popcorn) {
-	  Popcorn.plugin( "thumber" , function( options ) {
+	  Popcorn.plugin( "interventor" , function( options ) {
 
 	    return {
-
 	      start: function( event, options ) {
-
-		// Inside of these plugin method definitions, you can 
-		// always trust that the context will be the Popcorn 
-		// instance that will call the plugin method...
-
-		console.log(event)
-		console.log(options)
-		options.callback("hola")
-		// ...would pause the current video when the plugin 
-		// is executed.
-
+		if(options.callback) {
+		    options.callback(this, options);
+		} 
 	      },
 	      end: function( event, options ) {
-
-		// still the same context in here!
-
+		if (options.endcallback) {
+		    options.endcallback(this, options);
+                } else {
+		    clear_text(this, options)
+		}
 	      }
 	    };
 	  });
@@ -41,23 +46,39 @@
 
       // Create a popcporn instance by calling Popcorn("#id-of-my-video")
       var pop = Popcorn("#video");
-
-      pop.thumber({
-	    start: 2, 
-	    end: 5,
-	    callback: alertar
-	});
-
+      populate(pop, elements);
     }, false);
+
+    elements = [
+	{
+	    start: 2,
+	    end: 5,
+	    callback: change_text,
+	    html: "una historia en <strong>HT&Ntilde;L5</strong>"
+	},
+	{
+	    start: 10,
+	    end: 12,
+	    callback: change_text,
+	    html: "amigos"
+	},
+	{
+	    start: 25,
+	    end: 27,
+	    callback: change_text,
+	    html: "personalizar!"
+	}
+    ]
+    console.log(elements);
     </script>
   </head>
   <body>
 
-    <video id="video" controls>
+    <video id="video" controls style="float:left">
       <source src="./html.webm"></source>
     </video>
 
-    <div id="footnotediv"> </div>
+    <div id="right" style="float:left;height:300px"> </div>
     
   </body>
 </html>
