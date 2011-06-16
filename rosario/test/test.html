@@ -8,14 +8,34 @@
     <script>
     var pop = null;
     var restauracion = '';
-    
+    var elements = Array();
+	
+    function parseSlide(){
+        elem = $(this);
+        switch(elem.attr("data-type")){
+            case "slide":
+                callback = change_text;
+                break;
+        }
+	    props = {start: elem.attr("data-from"), 
+                 end: elem.attr("data-to"),
+                 html: elem.html(),
+                 callback: callback,
+                 title: elem.children('h2').html()};
+        elements.push(props);
+    }    
+
+    function generateElements(){
+        var slides = $('#slides article').each(parseSlide);
+    }
+
     function showMaestro(maestro_id){
-	var maestros = Array('./carlos.webm');
-	var video_url = maestros[maestro_id];
-        var video = '<h2>maestro:</h2><video id="video_maestro_' + maestro_id +'" controls style="float:left" autoplay="true"><source src=" ' + video_url + '"></source></video><br><a href="#" onClick="restaurar()">cerrar</a>';
-	restauracion = $('#right').html();
-	pop.pause()
-	$('#right').html(video);
+	    var maestros = Array('./carlos.webm');
+	    var video_url = maestros[maestro_id];
+            var video = '<h2>maestro:</h2><video id="video_maestro_' + maestro_id +'" controls style="float:left" autoplay="true"><source src=" ' + video_url + '"></source></video><br><a href="#" onClick="restaurar()">cerrar</a>';
+	    restauracion = $('#right').html();
+	    pop.pause()
+	    $('#right').html(video);
 	
     }
     
@@ -60,7 +80,6 @@
 	    next_element = elements[i + 1];
 	    if(next_element){
 	    	data.next_start = next_element.start;
-		console.log(data.next_start);
 	    }
 	    pop.shortener(data);
 	}
@@ -70,9 +89,9 @@
 	  Popcorn.plugin( "interventor" , function( options ) {
 	    return {
 	      start: function( event, options ) {
-		if(options.callback) {
-		    options.callback(this, options);
-		} 
+		    if(options.callback) {
+		        options.callback(this, options);
+		    } 
 	      },
 	      end: function( event, options ) {
 		if (options.endcallback) {
@@ -87,7 +106,6 @@
 	    return {
 	      start: function( event, options ) {
 		  var version_larga = $('#version_larga');
-		  console.log(version_larga);
 		  if(!version_larga.prop("checked")){
 	          	gotoAndPlay(options.start);
                   }
@@ -111,11 +129,13 @@
     document.addEventListener("DOMContentLoaded", function () {
 
       // Create a popcporn instance by calling Popcorn("#id-of-my-video")
-      pop = Popcorn("#video");
+      pop = Popcorn("#video");    
+      generateElements();
+      console.log(elements);
       populate(pop, elements, loadElement);
-      populate_shortener(pop, chunks)
+      populate_shortener(pop, chunks);
     }, false);
-
+    /*
     elements = [
 	{
 	    start: 0,
@@ -136,9 +156,9 @@
 	    end: 1000,
 	    callback: change_text,
 	    title: "personalizar",
-	    html: '<a href="#" onClick="showMaestro(0)">Ver video de maestro</a>'
+	    html: '<iframe src="http://www.elpais.es" style="width:650px;height:350px"></iframe><br><a href="#" onClick="showMaestro(0)">Ver video de maestro</a>'
 	}
-    ]
+    ]*/
 
     chunks = [
 	{
@@ -160,7 +180,7 @@
       <source src="./carlos.webm"></source>
     </video>
 
-    <div id="right" style="float:left;height:380px"> </div>
+    <div id="right" style="float:left;height:380px;width:600px"> </div>
     <div style="clear:both"></div>
     <div id="controls">
         <label for="version_larga">Version larga</label>
@@ -168,6 +188,31 @@
     </div>
     <div id="thumbs"></div>
     
+
+    <div id="slides" style="display:none">
+	    <article data-from="1" data-to="15" data-type="slide">
+	        <h2>&iquest;Hacia d&oacute;nde estamos yendo?</h2>
+            <ul>
+	            <li>Auge de la conexi&oacute;n m&oacute;vil y el video</li>
+	            <li>Papel fundamental de la indexaci&oacute;n para captar tr&aacute;fico de buscadores y redes sociales</li>
+	            <li>Aparici&oacute;n de tecnolog&iacute;as que pueden cambiar paradigmas, hacia la trasmisi&oacute;n en vivo</li>
+	            <li>Acercamiento de la TV y la web</li>
+	            <li>La lucha por el contacto directo con el usuario</li>
+            </ul>
+            <p>
+	            <strong>Bio:</strong> Carlos Serrano es Comunicador Social y Periodista de la Universidad Pontificia Bolivariana de Medell&iacute;n. Actualmente es el Editor de Medios Interactivos de la Fundaci&oacute;n Nuevo Periodismo Iberoamericano.
+            </p>
+            <p>
+	            <h3>Enlaces</h3>
+	            <ul>
+	                <li><a href="http://www.nuevoperiodismo.org/">FNPI</a></li>
+	                <li><a href="http://www.fnpi.org/nodo-digital/">NODO DIGITAL</a></li>
+                    <li><a href="http://twitter.com/#!/carliserrano">TWITTER</a></li>
+	            </ul>
+            </p>
+        </article>
+    </div>
+
   </body>
 </html>
 
