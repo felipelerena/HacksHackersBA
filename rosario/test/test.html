@@ -60,15 +60,15 @@
         </div>
         <div id="thumbs"></div>
     </div>
-    
+
     <div id="slides" style="display:none">
         <article data-from="5" data-to="13" data-type="tweet">
             <div class="tweet">
-                hola, soy twitter
+                Hola, soy twitter
             </div>
         </article>
 
-	    <article data-from="1" data-to="15" data-type="slide">
+	    <article data-from="1" data-to="10" data-type="slide">
             <span>hola</span>
 	        <h2>&iquest;Hacia d&oacute;nde estamos yendo?</h2>
             <ul>
@@ -91,12 +91,40 @@
 	            </ul>
             </p>
         </article>
-        <article data-from="16" data-to="20" data-type="slide">
-            <span>esta mierda</span>
-	        <h2>&iquest;Funcioa?</h2>
+        <article data-from="10" data-to="20" data-type="slide">
+	        <h2>Maestros</h2>
+            <div>
+                <video id="video_maestro" style="height:330px" controls>
+                    <source src="./especialistas.webm"></source>
+                </video>
+                <script>
+                     var pop_especialistas = Popcorn("#video_maestro");
+                     chunks_especialistas = [
+                        {
+                            start: 24,
+                            end: 67,
+                            pauseonend: true
+                        },
+                        {
+                            start: 73,
+                            end: 140,
+                            pauseonend: true
+                        },
+                        {
+                            start: 145,
+                            end: 200,
+                            pauseonend: true
+                        }
+                    ]
+                    populate_shortener(pop_especialistas, chunks_especialistas);
+                </script>
+                <br>
+                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 24)">Gumersindo Lafuente</a>
+                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 73)">Jean Francois Fogel</a>
+                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 145)">James Brainer</a>
+            </div>
         </article>
     </div>
-
   </body>
 </html>
 

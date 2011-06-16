@@ -18,8 +18,9 @@ function generateElements(){
 
 function showMaestro(maestro_id){
     var video_url = 'especialistas.webm';
-        var video = '<h2>maestro:</h2><video id="video_maestro" controls style="height:330px" ><source src=" ' + video_url + '"></source></video><br> <a href="#" onClick="restaurar()">cerrar</a>';
+        var video = $('maestros').html();
     pop.pause()
+    
     $('#right').html(video);
 }
 
@@ -28,15 +29,16 @@ function restaurar(){
     pop.play()
 }
 
-function gotoAndPlay(start){
-pop.currentTime([start]);
+function gotoAndPlay(video, start){
+    video.currentTime([start]);
+    video.play()
 }
 
 function add_thumb(pop, title, start) {
     if(title != null) {
         var thumbs = $('#thumbs');
         var id_ = 'video_' + Math.ceil(Math.random() * 100000);
-        thumbs.append('<li><a href="#" onclick="gotoAndPlay(' + start + ')">' + title + '</a></span></li>');
+        thumbs.append('<li><a href="#" onclick="gotoAndPlay(pop, ' + start + ')">' + title + '</a></span></li>');
     }
 }
 
@@ -92,14 +94,15 @@ for(var i=0; i<elements.length; i++) {
       start: function( event, options ) {
 	      var version_larga = $('#version_larga');
 	      if(!version_larga.prop("checked")){
-              gotoAndPlay(options.start);
+              gotoAndPlay(this, options.start);
           }
       },
       end: function( event, options ) {
 	      var version_larga = $('#version_larga');
               if(!version_larga.prop("checked")){
-	              if(options.next_start) {
-                      gotoAndPlay(options.next_start);
+                  console.log(options)
+	              if(!options.pauseonend && options.next_start) {
+                      gotoAndPlay(this, options.next_start);
 	              } else {
 	                  this.pause();
 	              }
@@ -116,20 +119,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // Create a popcporn instance by calling Popcorn("#id-of-my-video")
   pop = Popcorn("#video");    
   generateElements();
-  console.log(elements);
   populate(pop, elements, loadElement);
   populate_shortener(pop, chunks);
 }, false);
 
 chunks = [
-{
-    start: 0,
-    end: 5
-},
-{
-    start: 10,
-    end: 300
-}
+    {
+        start: 0,
+        end: 10,
+        pauseonend: true
+    },
+    {
+        start: 11,
+        end: 300,
+        pauseonend: false
+    }
 ]
-
 
