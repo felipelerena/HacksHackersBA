@@ -7,138 +7,34 @@
     <script src="javascript/general.js"></script>
     <script src="javascript/popcorn.tweet.js"></script>
     <script src="javascript/popcorn.cut.js"></script>
-    <style>
-        #overlay, #video { width: 507px; height: 380px; position: absolute; overflow: hidden; }
-
-        .tweet {
-	        position: absolute; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; width: 320px;
-	        bottom: -100px; left: 50px; z-index: 1; padding: 10px; font: normal 14px Arial; border:5px solid #2299cc; background: #fff;
-	        -moz-transition-duration: 1s;
-	        -moz-transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
-	        -webkit-transition-duration: 1s;
-	        -webkit-transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
-	        transition-duration: 1s;
-	        transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
-        }
-        .tweet, .tweet .avatar {
-	        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(opacity=40)";
-	        -moz-box-shadow:2px 2px 4px #000000;
-	        -webkit-box-shadow:2px 2px 4px #000000;
-        }
-        .tweet:after {
-	        content: ""; position: absolute; bottom: -13px; left: 47px; border-width: 13px 13px 0;
-	        border-style: solid; border-color: #fff transparent; display: block; width: 0; z-index: 2;
-        }
-        .tweet:before {
-	        content: ""; position: absolute; bottom: -20px; left: 40px; border-width: 20px 20px 0;
-	        border-style: solid; border-color: #2299cc transparent; display: block; width: 0; z-index: 2;
-        }
-        .tweet .avatar {
-		        width: 48px; height: 48px; position: absolute; left: 35px; bottom: -55px;
-		        border: 3px solid #fff; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px;
-		        border-top-color: #2299cc;
-        }
-        .tweet .tweep {
-	        position: absolute; bottom: -42px; left: 100px; text-shadow: 1px 1px 1px #000; font: bold 20px Arial; color: #fff;
-        }
-        .tweet .tweep:before { content: "@"; }
-        .tweet .text { z-index: 2; }
-
-        .cut { position: absolute; width: 100%; height: 100%; background: #fff;
-	        text-align: center; line-height: 300px;
-        }
-        .cut h2 {
-	        color: #fff;
-	        -webkit-transition: color 1s ease-in;
-	        -moz-transition: color 1s ease-in;
-	        -o-transition: color 1s ease-in;
-	        transition: color 1s ease-in;
-        }
-    </style>
+	<!-- <link href='http://fonts.googleapis.com/css?family=Playfair+Display&v1' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:bold&v1' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="http://dl.dropbox.com/u/104916/webperiodismo/css/style.css"> -->
+    <link rel="stylesheet" href="css/tweet.css">
+    <link rel="stylesheet" href="css/cut.css">
   </head>
   <body>
-    
-    <div id="overlay">
-    </div>
-    <video id="video" controls style="float:left;">
-      <source src="./carlos.webm"></source>
-    </video>
-    <div id="right" style="height:380px;width:600px;margin-left:515px;float:right"> </div>
-    <div style="position:absolute;margin-top:390px;">
-        <div id="controls">
-            <label for="version_larga">Version completa</label>
-	        <input type="checkbox" id="version_larga">
-            <label for="version_larga">Mostrar tweets</label>
-	        <input type="checkbox" id="mostrar_tweets" checked="checked">
-        </div>
-        <div id="thumbs"></div>
-    </div>
-    <div id="slides" style="display:none">
-<!--
-        <article data-from="5" data-to="13" data-type="tweet">
-            <div class="tweet">
-                Hola, soy twitter
-            </div>
-        </article>
-
-	    <article data-from="1" data-to="10" data-type="slide">
-            <span>hola</span>
-	        <h2>&iquest;Hacia d&oacute;nde estamos yendo?</h2>
-            <ul>
-	            <li>Auge de la conexi&oacute;n m&oacute;vil y el video</li>
-	            <li>Papel fundamental de la indexaci&oacute;n para captar tr&aacute;fico de buscadores y redes sociales</li>
-	            <li>Aparici&oacute;n de tecnolog&iacute;as que pueden cambiar paradigmas, hacia la trasmisi&oacute;n en vivo</li>
-	            <li>Acercamiento de la TV y la web</li>
-	            <li>La lucha por el contacto directo con el usuario</li>
-            </ul>
-            <p>
-                <a href="#" onClick="showMaestro()">Mostrar Maestro</a>
-	            <strong>Bio:</strong> Carlos Serrano es Comunicador Social y Periodista de la Universidad Pontificia Bolivariana de Medell&iacute;n. Actualmente es el Editor de Medios Interactivos de la Fundaci&oacute;n Nuevo Periodismo Iberoamericano.
-            </p>
-            <p>
-	            <h3>Enlaces</h3>
-	            <ul>
-	                <li><a href="http://www.nuevoperiodismo.org/">FNPI</a></li>
-	                <li><a href="http://www.fnpi.org/nodo-digital/">NODO DIGITAL</a></li>
-                    <li><a href="http://twitter.com/#!/carliserrano">TWITTER</a></li>
-	            </ul>
-            </p>
-        </article>
-        <article data-from="10" data-to="20" data-type="slide">
-	        <h2>Maestros</h2>
-            <div>
-                <video id="video_maestro" style="height:330px" controls>
-                    <source src="./especialistas.webm"></source>
-                </video>
-                <script>
-                     var pop_especialistas = Popcorn("#video_maestro");
-                     chunks_especialistas = [
-                        {
-                            start: 24,
-                            end: 67,
-                            pauseonend: true
-                        },
-                        {
-                            start: 73,
-                            end: 140,
-                            pauseonend: true
-                        },
-                        {
-                            start: 145,
-                            end: 200,
-                            pauseonend: true
-                        }
-                    ]
-                    populate_shortener(pop_especialistas, chunks_especialistas);
-                </script>
-                <br>
-                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 24)">Gumersindo Lafuente</a>
-                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 73)">Jean Francois Fogel</a>
-                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 145)">James Brainer</a>
-            </div>
-        </article>
--->
-        <article data-from="2" data-to="28" data-type="slide">
+	<div id="wrapper">
+		<header><p>Foro de Periodismo Digital Rosario</p></header>
+		<h1>#webperiodismo + #HHBA</h1>
+		<div id="overlay"></div>
+	    <video id="video" controls>
+			<source src="./carlos.webm"></source>
+	    </video>
+		<div id="right"></div>
+        <div id="noright">
+	        <div id="controls">
+	            <label for="version_larga">Version completa</label>
+		        <input type="checkbox" id="version_larga">
+	            <label for="version_larga">Mostrar tweets</label>
+		        <input type="checkbox" id="mostrar_tweets" checked="checked">
+                <a href="./Presentacion Rosario.pdf">Bajar PDF</a>
+	        </div>
+	        <div id="thumbs"></div>
+	    </div>
+	    <div id="slides">
+	    	<article data-from="2" data-to="28" data-type="slide">
             <h2>&iquest;Hacia d&oacute;nde estamos yendo?</h2>
             <ul>
                 <li>Auge de la conexi&oacute;n m&oacute;vil y el video</li>
@@ -161,6 +57,7 @@
         </article>
 
         <article data-from="466" data-to="485" data-type="slide">
+                    <h3>Retos</h3>
                     <h2>Retos y desafíos para el webperiodismo</h2>
                     <p>
                         Un medio digital debe ser útil y marcar la diferencia con identidad propia. Enfocarse en la  atención a la audiencia y asumir nuevas responsabilidades son algunas de las claves . Para los emprendedores de medios digitales, los principales problemas pasan por capacitarse y generar contenidos de calidad con pocos recursos financieros. 
@@ -175,10 +72,18 @@
         </article>
 
         <article data-from="486" data-to="571" data-type="slide">
+                    <h3>Retos</h3>
                     <h2>Hay sobreabundancia de contenidos</h2>
                  	<p>La clave es ser realmente útil y original.</p>
 			        <p>El usuario es cada vez más protagonista.</p>
 			        <p>Los medios deben asumir nuevas responsabilidades.</p>
+			        <p>
+			            <h3>Enlaces</h3>
+				            <ul>
+					            <li>FNPI <a href="http://www.fnpi.org/nodo-digital/" target="_blank">http://www.fnpi.org/nodo-digital/</a></li>
+                                <li>Consumer <a href="http://www.consumer.es/web/es/tecnologia/internet/2008/02/14/174203.php">http://www.consumer.es/web/es/tecnologia/internet/2008/02/14/174203.php</a></li>
+				            </ul>
+				    </p>
         </article>
 
     <article data-from="510" data-to="520" data-type="tweet">
@@ -190,7 +95,7 @@
     </article>
 
     <article data-from="572" data-to="573" data-type="slide">
-            <h2>Retos</h2>
+            <h2>Videos de retos</h2>
             <div>
                 <video id="video_maestro" style="height:330px" controls>
                     <source src="./especialistas.webm"></source>
@@ -265,17 +170,24 @@
                 
         <article data-from="1221" data-to="1304" data-type="slide">
 	        <h3>Oportunidades</h3>
-            <h2>Oprtunidades para los medios digitales</h2>
+            <h2>Oportunidades para los medios digitales</h2>
              	<p>El periodista en la red debe rastrear, seleccionar y dar sentido a la información. Para ello     es importante detectar los tiempos adecuados para conversar con la audiencia y     generar contenidos. Existen también nichos y zonas descuidadas por los medios     tradicionales que se pueden aprovechar. Contar con colaboradores de alto nivel y producir contenido propio de calidad es indispensable.  </p>
         </article>
 
         <article data-from="1305" data-to="1328" data-type="slide">
 	        <h3>Oportunidades</h3>
             <h2>Hay zonas descuidadas por los medios tradicionales</h2>
-             	
+            <p>
+     	        <h3>Enlaces</h3>
+     	            <ul>
+     		            <li><a href="http://www.masternewmedia.org/es/2010/05/08/el_curador_de_contenidos_online_la_nueva.html">http://www.masternewmedia.org/es/2010/05/08/el_curador_de_contenidos_online_la_nueva.html</a></li>
+                        <li><a href="http://www.hijodelmedio.com/2010/05/fogel-y-los-desafios-del-periodismo/">http://www.hijodelmedio.com/2010/05/fogel-y-los-desafios-del-periodismo/</a></li>
+                        <li><a href="http://www.sololocal.info/">http://www.sololocal.info/</a></li>
+                    </ul>
+            </p> 	
         </article>
-        <article data-from="1325" data-to="1326" data-type="slide">
-        <h2>Oportunidades</h2>
+        <article data-from="1328" data-to="1330" data-type="slide">
+        <h2>Videos de oportunidades</h2>
         <div>
             <video id="video_maestro" style="height:330px" controls>
                 <source src="./especialistas.webm"></source>
@@ -375,6 +287,16 @@
         <h3>Futuro</h3>
         <h2>Hacia dónde vamos y qué se mantiene</h2>
          	<p>El webperiodismo tiene que aprender a vivir en modo beta: ensayar, equivocarse,     innovar     permanentemente. La reportería, la investigación, la ética son valores que no deben perderse.</p>
+         	<h2>"Internet es un medio en constante modo beta"</h2>
+     	    <p>La web es un medio en constante movimiento. Siempre estamos innovando, siempre estamos pensando cosas diferentes. </p>
+     	    <h2>"¡Pasarla bien"</h2>
+     	    <p>
+     	        <h3>Enlaces</h3>
+     	            <ul>
+     		            <li><a href="http://www.lacapital.com.ar/contenidos/2011/06/15/noticia_0052.html">El periodista tiene que bajarse del pedestal e interactuar con la audiencia"</a></li>
+     		            <li><a href="">Periodismo Digital en un paradigma de trasición</a></li>
+     	            </ul>
+     	    </p>
     </article>
 
         <article data-from="2090" data-to="2110" data-type="tweet">
@@ -398,7 +320,7 @@
 
 
 <article data-from="2127" data-to="2128" data-type="slide">
-          <h2>Futuro</h2>
+          <h2>Videos de futuro</h2>
         <div>
             <video id="video_maestro" style="height:330px" controls>
                 <source src="./especialistas.webm"></source>
@@ -448,10 +370,9 @@
                 </ul>
             </p>
          </div>
+<a href="#" onClick="cronica()">FIN</a>
 </article>
-
-    </div>
+	    </div>
+	</div>
   </body>
 </html>
-
-

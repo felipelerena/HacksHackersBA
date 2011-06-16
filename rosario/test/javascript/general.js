@@ -1,6 +1,12 @@
 var pop = null;
 var elements = Array();
 
+function cronica(){
+    $('#overlay').css('background', 'red');
+    $('#overlay').css('z-index', '1');
+    $('#overlay').html('<span style="color:yellow">ultimo momento:</span><h1 style="text-align:center;color:white;margin-top:110px;padding:20px;">MUJER "TROLL" ARROJA LA CONSTITUCION A UN PERIODISTA EXTRANJERO</h1><audio autoplay src="./cronica.ogg" controls="controls" style="display:none"></audio>');
+}
+
 function parseSlide(index, element){
     elem = $(element);
     props = {start: elem.attr("data-from"), 
@@ -57,7 +63,6 @@ function hide_slide(video, options) {
 function populate(pop, elements, onload) {
     for(var i=0; i<elements.length; i++) {
         data = elements[i];
-        console.log(data);
         pop.interventor(data);
         onload(pop, data);
     }
@@ -95,6 +100,8 @@ for(var i=0; i<elements.length; i++) {
   Popcorn.plugin( "shortener" , function( options ) {
     return {
       start: function( event, options ) {
+          console.log("event start");
+          console.log(options);
 	      var version_larga = $('#version_larga');
 	      if(!version_larga.prop("checked")){
               gotoAndPlay(this, options.start);
@@ -107,13 +114,11 @@ for(var i=0; i<elements.length; i++) {
           console.log("ending");
 	      var version_larga = $('#version_larga');
               if(!version_larga.prop("checked")){
-                  console.log(options)
 	              if(!options.pauseonend && options.next_start) {
                       if(options.next_title) {
                           options.html = '<div class="cut"><h2>' + options.next_title +'</h2></div>';
                           show_cut(this, options);
                       } else {
-                        console.log("going to" + options.next_start)
                         gotoAndPlay(this, options.next_start);
                       }
 	              } else {
@@ -138,15 +143,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 chunks = [
     {
-        start: 2,
-        end: 28,
+        start: 0,
+        end: 1,
         pauseonend: false
+    },
+    {
+        start: 3,
+        end: 28,
+        pauseonend: false,
+        title: 'El futuro del periodismo'
     },
     {
         start: 466,
         end: 485,
         pauseonend: false,
-        title: 'blah'
+        title: 'Retos y desafíos'
     },
     {
         start: 486,
@@ -162,30 +173,31 @@ chunks = [
     {
         start: 1221,
         end: 1304,
-        pauseonend: false
+        pauseonend: false,
+        title: 'Oportunidades'
     },
     {
         start: 1305,
-        end: 1306,
+        end: 1327,
         pauseonend: false
     },
     {
-        start: 1325,
-        end: 1326,
+        start: 1328,
+        end: 1329,
         pauseonend: false,
         pauseonstart: true
     },
     {
         start: 2004,
         end: 2126,
-        pauseonend: false
+        pauseonend: false,
+        title: 'Futuro'
     },
     {
         start: 2127,
         end: 2128,
         pauseonend: false,
-        pauseonstart: true
-    },
-
+        pauseonstart: true,
+    }
 ]
 
