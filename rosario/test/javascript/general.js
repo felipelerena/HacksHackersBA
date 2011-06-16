@@ -69,7 +69,10 @@ for(var i=0; i<elements.length; i++) {
     next_element = elements[i + 1];
     if(next_element){
     	data.next_start = next_element.start;
+    	data.next_title = next_element.title;
     }
+
+
     pop.shortener(data);
 }
 }
@@ -95,14 +98,24 @@ for(var i=0; i<elements.length; i++) {
 	      var version_larga = $('#version_larga');
 	      if(!version_larga.prop("checked")){
               gotoAndPlay(this, options.start);
+              if(options.pauseonstart){
+                  this.pause()
+              }
           }
       },
       end: function( event, options ) {
+          console.log("ending");
 	      var version_larga = $('#version_larga');
               if(!version_larga.prop("checked")){
                   console.log(options)
 	              if(!options.pauseonend && options.next_start) {
-                      gotoAndPlay(this, options.next_start);
+                      if(options.next_title) {
+                          options.html = '<div class="cut"><h2>' + options.next_title +'</h2></div>';
+                          show_cut(this, options);
+                      } else {
+                        console.log("going to" + options.next_start)
+                        gotoAndPlay(this, options.next_start);
+                      }
 	              } else {
 	                  this.pause();
 	              }
@@ -125,14 +138,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
 chunks = [
     {
-        start: 0,
-        end: 10,
-        pauseonend: true
+        start: 2,
+        end: 28,
+        pauseonend: false
     },
     {
-        start: 11,
-        end: 300,
+        start: 466,
+        end: 485,
+        pauseonend: false,
+        title: 'blah'
+    },
+    {
+        start: 486,
+        end: 571,
         pauseonend: false
-    }
+    },
+    {
+        start: 572,
+        end: 573,
+        pauseonend: false,
+        pauseonstart: true
+    },
+    {
+        start: 1221,
+        end: 1304,
+        pauseonend: false
+    },
+    {
+        start: 1305,
+        end: 1306,
+        pauseonend: false
+    },
+    {
+        start: 1325,
+        end: 1326,
+        pauseonend: false,
+        pauseonstart: true
+    },
+    {
+        start: 2004,
+        end: 2126,
+        pauseonend: false
+    },
+    {
+        start: 2127,
+        end: 2128,
+        pauseonend: false,
+        pauseonstart: true
+    },
+
 ]
 

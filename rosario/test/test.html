@@ -1,10 +1,12 @@
 <!doctype html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="javascript/popcorn.js"></script>
     <script src="javascript/jquery-1.6.1.min.js"></script>
     <script src="javascript/general.js"></script>
     <script src="javascript/popcorn.tweet.js"></script>
+    <script src="javascript/popcorn.cut.js"></script>
     <style>
         #overlay, #video { width: 507px; height: 380px; position: absolute; overflow: hidden; }
 
@@ -41,6 +43,17 @@
         }
         .tweet .tweep:before { content: "@"; }
         .tweet .text { z-index: 2; }
+
+        .cut { position: absolute; width: 100%; height: 100%; background: #fff;
+	        text-align: center; line-height: 300px;
+        }
+        .cut h2 {
+	        color: #fff;
+	        -webkit-transition: color 1s ease-in;
+	        -moz-transition: color 1s ease-in;
+	        -o-transition: color 1s ease-in;
+	        transition: color 1s ease-in;
+        }
     </style>
   </head>
   <body>
@@ -53,15 +66,15 @@
     <div id="right" style="height:380px;width:600px;margin-left:515px;float:right"> </div>
     <div style="position:absolute;margin-top:390px;">
         <div id="controls">
-            <label for="version_larga">Version larga</label>
+            <label for="version_larga">Version completa</label>
 	        <input type="checkbox" id="version_larga">
             <label for="version_larga">Mostrar tweets</label>
 	        <input type="checkbox" id="mostrar_tweets" checked="checked">
         </div>
         <div id="thumbs"></div>
     </div>
-
     <div id="slides" style="display:none">
+<!--
         <article data-from="5" data-to="13" data-type="tweet">
             <div class="tweet">
                 Hola, soy twitter
@@ -124,6 +137,319 @@
                 <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 145)">James Brainer</a>
             </div>
         </article>
+-->
+        <article data-from="2" data-to="28" data-type="slide">
+            <h2>&iquest;Hacia d&oacute;nde estamos yendo?</h2>
+            <ul>
+                <li>Auge de la conexi&oacute;n m&oacute;vil y el video</li>
+                <li>Papel fundamental de la indexaci&oacute;n para captar tr&aacute;fico de buscadores y redes sociales</li>
+                <li>Aparici&oacute;n de tecnolog&iacute;as que pueden cambiar paradigmas, hacia la trasmisi&oacute;n en vivo</li>
+                <li>Acercamiento de la TV y la web</li>
+                <li>La lucha por el contacto directo con el usuario</li>
+            </ul>
+            <p>
+                <strong>Bio:</strong> Carlos Serrano es Comunicador Social y Periodista de la Universidad Pontificia Bolivariana de Medell&iacute;n. Actualmente es el Editor de Medios Interactivos de la Fundaci&oacute;n Nuevo Periodismo Iberoamericano.
+            </p>
+            <p>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="http://www.nuevoperiodismo.org/">FNPI</a></li>
+                    <li><a href="http://www.fnpi.org/nodo-digital/">NODO DIGITAL</a></li>
+                    <li><a href="http://twitter.com/#!/carliserrano">TWITTER</a></li>
+                </ul>
+            </p>
+        </article>
+
+        <article data-from="466" data-to="485" data-type="slide">
+                    <h2>Retos y desafíos para el webperiodismo</h2>
+                    <p>
+                        Un medio digital debe ser útil y marcar la diferencia con identidad propia. Enfocarse en la  atención a la audiencia y asumir nuevas responsabilidades son algunas de las claves . Para los emprendedores de medios digitales, los principales problemas pasan por capacitarse y generar contenidos de calidad con pocos recursos financieros. 
+                    </p>
+        </article>
+        <article data-from="470" data-to="500" data-type="tweet">
+            <div class="tweet">
+                <img class="avatar" src="http://a1.twimg.com/profile_images/935891445/ale4_normal.jpg" alt="alerost">
+                <span class="text">Retos: 1) ser útil y marcar diferencia,2) enfocar la atención en la audiencia, 3) Asumir nvas responsabilidades @CarliSerrano #webperiodismo</span><br>
+                <a href="http://twitter.com/usuario" rel="nofollow" class="tweep">alerost</a>
+            </div>
+        </article>
+
+        <article data-from="486" data-to="571" data-type="slide">
+                    <h2>Hay sobreabundancia de contenidos</h2>
+                 	<p>La clave es ser realmente útil y original.</p>
+			        <p>El usuario es cada vez más protagonista.</p>
+			        <p>Los medios deben asumir nuevas responsabilidades.</p>
+        </article>
+
+    <article data-from="510" data-to="520" data-type="tweet">
+        <div class="tweet">
+            <img class="avatar" src="http://a2.twimg.com/profile_images/1279473416/avatar_normal.jpg" alt="claujofre">
+            <span class="text">El usuario es cada vez más protagonista y decide para dónde van los contenidos #webperiodismo</span><br>
+            <a href="http://twitter.com/usuario" rel="nofollow" class="tweep">claujofre</a>
+        </div>
+    </article>
+
+    <article data-from="572" data-to="573" data-type="slide">
+            <h2>Retos</h2>
+            <div>
+                <video id="video_maestro" style="height:330px" controls>
+                    <source src="./especialistas.webm"></source>
+                </video>
+                <script>
+                     var pop_especialistas = Popcorn("#video_maestro");
+                     chunks_especialistas = [
+                        {
+                            start: 24,
+                            end: 67,
+                            pauseonend: true
+                        },
+                        {
+                            start: 73,
+                            end: 140,
+                            pauseonend: true
+                        },
+                        {
+                            start: 145,
+                            end: 200,
+                            pauseonend: true
+                        }
+                    ]
+                    populate_shortener(pop_especialistas, chunks_especialistas);
+                </script>
+                <br>
+                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 24);$('.maestro').css('display', 'none');$('#maestro1').css('display', '');">Gumersindo Lafuente</a>
+                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 73);$('.maestro').css('display', 'none');$('#maestro2').css('display', '');">Jean Francois Fogel</a>
+                <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 145);$('.maestro').css('display', 'none');$('#maestro3').css('display', '');">James Brainer</a>
+            </div>
+
+            <div id="maestro1" class="maestro">
+                <h3>Gumersindo Lafuente, Director Elpais.es</h3>
+                <h2>"El reto es crear un mensaje diferente"</h2>
+                <p>El mayor reto que enfrentan los medios de comunicación es el de crear un mensaje diferente, original, y que a sus potenciales audiencias les resulte útil y atractivo por algún motivo. A su vez el desafío es que resulte útil y atractivo por algún motivo. Hoy existe una saturación de replicas y pocos contenidos originales… lo fundamental es marcar la diferencia.</p>
+                <p>
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="http://twitter.com/#!/sindolafuente">@sindolafuente</a></li>
+                        <li><a href="http://www.elpais.es">Elpais.es</a></li>
+                        <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                    </ul>
+                </p>
+               </div>
+    <!-- <article data-from="73" data-to="140" data-type="slide"> -->
+                <div style="display:none" id="maestro2" class="maestro">
+                <h3>Jean Fracois Fogel, Maestro FNPI</h3>
+                <h2>"Hay que pensar en la audiencia"</h2>
+                <p>El desafío no es tanto tecnológico o periodístico sino más bien generar un cambio de 180° que ubique la mirada del periodista hacia la audiencia y sus necesidades de consumo informativo. El principal reto es pensar qué quiere recibir la audiencia, la pertinencia del contenido, y no en lo que pretende emitir el periodista. No comprender ésto y seguir enfocado en las redacciones y los contenidos, representa un fracaso para los dueños de medios. </p>
+                <p>
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                    </ul>
+                </p>
+                </div>
+
+    <!-- <article data-from="145" data-to="200" data-type="slide"> -->
+             <div style="display:none" id="maestro3" class="maestro">
+                <h3>James Breiner, Laboratorio de Emprendimientos FNPI</h3>
+                <h2>"Los periodistas deben aprender a vender"</h2>
+                <p>Los periodistas tienen que asumir responsabilidades para las cuales no se encuentran preparados de antemano, para las que se requieren de otras habilidades. Cuestiones que tienen que ver con el mercadeo del producto, del servicio informativo, de cómo vender. Destrezas más relacionadas con el papel que cumple el director del diario. Cuestiones que tienen que ver con el mercadeo del producto, del servicio informativo, de cómo vender. Ya que al fin de cuentas de lo que se trata es de generar ingresos para funcionar.  El problema es que muchos periodistas nunca habían considerado esto y les resulta muy difícil hacerlo. </p>
+                <p>
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="http://twitter.com/#!/jamesbreiner">@jamesbreiner</a></li>
+                        <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                    </ul>
+                </p>
+              </div>
+    </article>
+                
+        <article data-from="1221" data-to="1304" data-type="slide">
+	        <h3>Oportunidades</h3>
+            <h2>Oprtunidades para los medios digitales</h2>
+             	<p>El periodista en la red debe rastrear, seleccionar y dar sentido a la información. Para ello     es importante detectar los tiempos adecuados para conversar con la audiencia y     generar contenidos. Existen también nichos y zonas descuidadas por los medios     tradicionales que se pueden aprovechar. Contar con colaboradores de alto nivel y producir contenido propio de calidad es indispensable.  </p>
+        </article>
+
+        <article data-from="1305" data-to="1328" data-type="slide">
+	        <h3>Oportunidades</h3>
+            <h2>Hay zonas descuidadas por los medios tradicionales</h2>
+             	
+        </article>
+        <article data-from="1325" data-to="1326" data-type="slide">
+        <h2>Oportunidades</h2>
+        <div>
+            <video id="video_maestro" style="height:330px" controls>
+                <source src="./especialistas.webm"></source>
+            </video>
+            <script>
+                 var pop_especialistas = Popcorn("#video_maestro");
+                 chunks_especialistas = [
+                    {
+                        start: 209,
+                        end: 286,
+                        pauseonend: true
+                    },
+                    {
+                        start: 287,
+                        end: 399,
+                        pauseonend: true
+                    },
+                    {
+                        start: 405,
+                        end: 457,
+                        pauseonend: true
+                    }
+                ]
+                populate_shortener(pop_especialistas, chunks_especialistas);
+            </script>
+            <br>
+            <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 24);$('.maestro').css('display', 'none');$('#maestro1').css('display', '');">Francis Pisani</a>
+            <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 73);$('.maestro').css('display', 'none');$('#maestro2').css('display', '');">Jean François Fogel</a>
+            <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 145);$('.maestro').css('display', 'none');$('#maestro3').css('display', '');">James Brainer</a>
+        </div>
+         <div id="maestro1" class="maestro">
+            <h3>Francis Pisani. Bloguero de Lemonde.fr - Maestro FNPI</h3>
+            <h2>"El periodista debe editar y dar sentido"</h2>
+            <p>Para el periodista generar contenidos originales es muy difícil en la actualidad. En cambio una de sus funciones debe ser ayudar a las audiencias a encontrar lo bueno, lo importante y lo que tiene sentido. La curaduría (o edición) entendida como selección, por un lado, y puesta en escena, por el otro, es un concepto interesante. Para el periodista generar contenidos nuevos u originales es muy difícil. En cambio una de sus funciones es ayudar a las audiencias a encontrar lo que tiene sentido en la red. Este trabajo de filtro no necesariamente debe hacerlo sólo el periodista, sino que los lectores pueden ayudar. Esto representa una primera parte de la curaduría, la segunda parte es darle sentido. </p>
+            <p>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                    <li><a href="http://www.lemonde.fr/">Le Monde</a></li>
+                </ul>
+            </p>
+</div>
+
+<!-- <article data-from="287" data-to="399" data-type="slide"> -->
+         <div style="display:none" id="maestro2" class="maestro">
+            <h3>Jean François Fogel - Maestro FNPI</h3>
+            <h2>"Hay que pensar en tiempos no en contenidos"</h2>
+            <p>Las oportunidades no pasan por los temas, los contenidos o las herramientas para textos o imágenes. Lo que hay que tener en claro es cuándo el periodista se va a dirigir a la audiencia y el momento temporal en que ésta va a recibir la noticia. Una cosa es el “vivo” y otra es el tiempo periodístico para la edición y el análisis. La clave no es pensar en temas o soportes sino en tiempos. </p>
+            <p>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                </ul>
+            </p>
+        </div>
+
+<!-- <article data-from="405" data-to="457" data-type="slide"> -->
+        <div style="display:none" id="maestro3" class="maestro">
+            <h3>James Breiner. Laboratorio de emprendimientos  FNPI</h3>
+            <h2>"Hay que trabajar los nichos"</h2>
+            <p>Las oportunidades existen en los nichos o zonas descuidadas por los medios tradicionales, blogueros u otros periodistas. Áreas como medio ambiente, salud o noticias hiperlocales representan grandes oportunidades. </p>
+            <p>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="http://twitter.com/#!/jamesbreiner">@jamesbreiner</a></li>
+                    <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                </ul>
+            </p>
+         </div>
+    </article>
+
+
+
+    
+
+    
+
+
+
+        <article data-from="1270" data-to="1280" data-type="tweet">
+            <div class="tweet">
+	            <img class="avatar" src="http://a3.twimg.com/profile_images/1319742447/Pajaritos_en_la_cabeza_normal.jpg" alt="diebustos">
+	            <span class="text">Oportunidades "saber llevar nuestras conversaciones adonde está la gente" @CarliSerrano #webperiodismo #rosario</span><br>
+	            <a href="http://twitter.com/usuario" rel="nofollow" class="tweep">diebustos</a>
+            </div>
+        </article>
+
+        <article data-from="1297" data-to="1310" data-type="tweet">
+            <div class="tweet">
+	            <img class="avatar" src="http://a0.twimg.com/profile_images/1319224279/juantw_normal.jpg" alt="juancalcena">
+	            <span class="text">Oportunidades: detectar tiempos adecuados p/conversar y generar contenido. Zonas descuidadas por medios tradicionales. #webperiodismo</span><br>
+	            <a href="http://twitter.com/usuario" rel="nofollow" class="tweep">juancalcena</a>
+            </div>
+        </article>
+
+    <article data-from="2004" data-to="2126" data-type="slide">
+        <h3>Futuro</h3>
+        <h2>Hacia dónde vamos y qué se mantiene</h2>
+         	<p>El webperiodismo tiene que aprender a vivir en modo beta: ensayar, equivocarse,     innovar     permanentemente. La reportería, la investigación, la ética son valores que no deben perderse.</p>
+    </article>
+
+        <article data-from="2090" data-to="2110" data-type="tweet">
+            <div class="tweet">
+	            <img class="avatar"
+            src="http://a2.twimg.com/profile_images/1197293624/01102009329_normal.jpg"
+            alt="miriondo">
+	            <span class="text">Innovar y vivir en modo beta, en constante
+            evolución, prueba de ensayo y error #webperiodismo</span><br>
+	            <a href="http://twitter.com/usuario" class="tweep">miriondo</a>
+            </div>
+        </article>
+
+        <article data-from="2116" data-to="2124" data-type="tweet">
+            <div class="tweet">
+	            <img class="avatar" src="http://a2.twimg.com/profile_images/1279473416/avatar_normal.jpg" alt="claujofre">
+	            <span class="text">Claves del periodismo modo Beta: compartir, innovar, experimentar y divertirse haciendo lo que nos gusta #webperiodismo</span><br>
+	            <a href="http://twitter.com/usuario" rel="nofollow" class="tweep">claujofre</a>
+            </div>
+        </article>
+
+
+<article data-from="2127" data-to="2128" data-type="slide">
+          <h2>Futuro</h2>
+        <div>
+            <video id="video_maestro" style="height:330px" controls>
+                <source src="./especialistas.webm"></source>
+            </video>
+            <script>
+                 var pop_especialistas = Popcorn("#video_maestro");
+                 chunks_especialistas = [
+                    {
+                        start: 24,
+                        end: 67,
+                        pauseonend: true
+                    },
+                    {
+                        start: 73,
+                        end: 140,
+                        pauseonend: true
+                    }
+                ]
+                populate_shortener(pop_especialistas, chunks_especialistas);
+            </script>
+            <br>
+            <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 24);$('.maestro').css('display', 'none');$('#maestro1').css('display', '');">Jean Francois Fogel</a>
+            <a href="#" onClick="pop.pause();gotoAndPlay(pop_especialistas, 73);$('.maestro').css('display', 'none');$('#maestro2').css('display', '');">Francis Pisani</a>
+        </div>
+          <div id="maestro1" class="maestro">  
+            <h3>Jean François Fogel. Maestro  FNPI</h3>
+            <h2>"Es necesario equivocarse"</h2>
+            <p>Vivimos en un mundo donde no se sabe lo que se necesita y la única manera de encontrarlo para tener éxito es intentando, probando. Es necesario equivocarse mucho para encontrar una idea válida. </p>
+            <p>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                </ul>
+            </p>
+        </div>
+
+<!-- <article data-from="602" data-to="676" data-type="slide"> -->
+        <div style="display:none" id="maestro2" class="maestro">
+            <h3>Francis Pisani. Bloguero de Lemonde.fr. Maestro  FNPI</h3>
+            <h2>"Hay que participar del cambio"</h2>
+            <p>VEs importante reconocer que no hay formula y participar aun sabiendo que no se tiene la solución. Emprendedores, dueños de medios, periodistas y particulares deben participar para así lograr la solución. Actualizar y crear herramientas es indispensable. Estamos viviendo un momento extraordinario en el cual participar no solamente es indispensable sino divertido y excitante. </p>
+            <p>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="http://www.lemonde.fr/">Le Monde</a></li>
+                    <li><a href="http://www.fnpi.org/">FNPI</a></li>
+                </ul>
+            </p>
+         </div>
+</article>
+
     </div>
   </body>
 </html>
