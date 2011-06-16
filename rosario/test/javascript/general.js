@@ -1,34 +1,31 @@
 var pop = null;
-var restauracion = '';
 var elements = Array();
 
-function parseSlide(){
-    elem = $(this);
+function parseSlide(index, element){
+    elem = $(element);
     props = {start: elem.attr("data-from"), 
              end: elem.attr("data-to"),
              html: elem.html(),
              callback: eval("show_" + elem.attr("data-type")),
+             endcallback: eval("hide_" + elem.attr("data-type")),
              title: elem.children('h2').html()};
     elements.push(props);
 }    
 
 function generateElements(){
-    var slides = $('#slides article').each(parseSlide);
+    $('#slides article').each(parseSlide);
 }
 
 function showMaestro(maestro_id){
-    var maestros = Array('./carlos.webm');
-    var video_url = maestros[maestro_id];
-        var video = '<h2>maestro:</h2><video id="video_maestro_' + maestro_id +'" controls style="float:left" autoplay="true"><source src=" ' + video_url + '"></source></video><br><a href="#" onClick="restaurar()">cerrar</a>';
-    restauracion = $('#right').html();
+    var video_url = 'especialistas.webm';
+        var video = '<h2>maestro:</h2><video id="video_maestro" controls style="height:330px" ><source src=" ' + video_url + '"></source></video><br> <a href="#" onClick="restaurar()">cerrar</a>';
     pop.pause()
     $('#right').html(video);
-
 }
 
 function restaurar(){
-$('#right').html(restauracion);
-pop.play()
+    $('#right').html(restauracion);
+    pop.play()
 }
 
 function gotoAndPlay(start){
@@ -51,20 +48,21 @@ function show_slide(video, options) {
    	$('#right').html(options.html);
 }
 
-function clear_text(video, options) {
+function hide_slide(video, options) {
    	$('#right').html("");
 }
 
 function populate(pop, elements, onload) {
-    for(element in elements) {
-        data = elements[element];
+    for(var i=0; i<elements.length; i++) {
+        data = elements[i];
+        console.log(data);
         pop.interventor(data);
         onload(pop, data);
     }
 }
 
 function populate_shortener(pop, elements) {
-for(i=0; i<elements.length; i++) { 
+for(var i=0; i<elements.length; i++) { 
     data = elements[i];
     next_element = elements[i + 1];
     if(next_element){
@@ -83,33 +81,31 @@ for(i=0; i<elements.length; i++) {
 	    } 
       },
       end: function( event, options ) {
-	if (options.endcallback) {
-	    options.endcallback(this, options);
-            } else {
-	    clear_text(this, options)
-	}
+	    if (options.endcallback) {
+	        options.endcallback(this, options);
+        }
       }
     };
   });
   Popcorn.plugin( "shortener" , function( options ) {
     return {
       start: function( event, options ) {
-	  var version_larga = $('#version_larga');
-	  if(!version_larga.prop("checked")){
-          	gotoAndPlay(options.start);
-              }
+	      var version_larga = $('#version_larga');
+	      if(!version_larga.prop("checked")){
+              gotoAndPlay(options.start);
+          }
       },
       end: function( event, options ) {
-	  var version_larga = $('#version_larga');
+	      var version_larga = $('#version_larga');
               if(!version_larga.prop("checked")){
-	      if(options.next_start) {
-                  gotoAndPlay(options.next_start);
-	      } else {
-	          this.pause();
-	      }
-              }
-      }
-    };
+	              if(options.next_start) {
+                      gotoAndPlay(options.next_start);
+	              } else {
+	                  this.pause();
+	              }
+             }
+          }
+      };
   });
     
 })(Popcorn);
@@ -124,30 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
   populate(pop, elements, loadElement);
   populate_shortener(pop, chunks);
 }, false);
-/*
-elements = [
-{
-    start: 0,
-    end: 5,
-    callback: change_text,
-    title: "una historia",
-    html: "una historia en <strong>HT&Ntilde;L5</strong>"
-},
-{
-    start: 10,
-    end: 12,
-    callback: change_text,
-    title: "amigos",
-    html: "amigos"
-},
-{
-    start: 25,
-    end: 1000,
-    callback: change_text,
-    title: "personalizar",
-    html: '<iframe src="http://www.elpais.es" style="width:650px;height:350px"></iframe><br><a href="#" onClick="showMaestro(0)">Ver video de maestro</a>'
-}
-]*/
 
 chunks = [
 {
@@ -156,7 +128,7 @@ chunks = [
 },
 {
     start: 10,
-    end: 15
+    end: 300
 }
 ]
 

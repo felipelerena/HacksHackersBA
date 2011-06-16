@@ -1,196 +1,75 @@
 <!doctype html>
 <html>
   <head>
-
     <script src="javascript/popcorn.js"></script>
     <script src="javascript/jquery-1.6.1.min.js"></script>
+    <script src="javascript/general.js"></script>
+    <script src="javascript/popcorn.tweet.js"></script>
+    <style>
+        #overlay, #video { width: 507px; height: 380px; position: absolute; overflow: hidden; }
 
-    <script>
-    var pop = null;
-    var restauracion = '';
-    var elements = Array();
-	
-    function parseSlide(){
-        elem = $(this);
-        switch(elem.attr("data-type")){
-            case "slide":
-                callback = change_text;
-                break;
+        .tweet {
+	        position: absolute; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; width: 320px;
+	        bottom: -100px; left: 50px; z-index: 1; padding: 10px; font: normal 14px Arial; border:5px solid #2299cc; background: #fff;
+	        -moz-transition-duration: 1s;
+	        -moz-transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
+	        -webkit-transition-duration: 1s;
+	        -webkit-transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
+	        transition-duration: 1s;
+	        transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
         }
-	    props = {start: elem.attr("data-from"), 
-                 end: elem.attr("data-to"),
-                 html: elem.html(),
-                 callback: callback,
-                 title: elem.children('h2').html()};
-        elements.push(props);
-    }    
-
-    function generateElements(){
-        var slides = $('#slides article').each(parseSlide);
-    }
-
-    function showMaestro(maestro_id){
-	    var maestros = Array('./carlos.webm');
-	    var video_url = maestros[maestro_id];
-            var video = '<h2>maestro:</h2><video id="video_maestro_' + maestro_id +'" controls style="float:left" autoplay="true"><source src=" ' + video_url + '"></source></video><br><a href="#" onClick="restaurar()">cerrar</a>';
-	    restauracion = $('#right').html();
-	    pop.pause()
-	    $('#right').html(video);
-	
-    }
-    
-    function restaurar(){
-	$('#right').html(restauracion);
-	pop.play()
-    }
-
-    function gotoAndPlay(start){
-	pop.currentTime([start]);
-    }
-
-    function add_thumb(pop, title, start) {
-	var thumbs = $('#thumbs');
-	var id_ = 'video_' + Math.ceil(Math.random() * 100000);
-	thumbs.append('<li><a href="#" onclick="gotoAndPlay(' + start + ')">' + title + '</a></span></li>');
-    }
-
-    function loadElement(pop, data){
-        add_thumb(pop, data.title, data.start);
-    }
-
-    function change_text(video, options) {
-       	$('#right').html(options.html);
-    }
-
-    function clear_text(video, options) {
-       	$('#right').html("");
-    }
-
-    function populate(pop, elements, onload) {
-	for(element in elements) {
-	    data = elements[element];
-	    pop.interventor(data);
-	    onload(pop, data);
-	}
-    }
-
-    function populate_shortener(pop, elements) {
-	for(i=0; i<elements.length; i++) { 
-	    data = elements[i];
-	    next_element = elements[i + 1];
-	    if(next_element){
-	    	data.next_start = next_element.start;
-	    }
-	    pop.shortener(data);
-	}
-    }
-
-    (function(Popcorn) {
-	  Popcorn.plugin( "interventor" , function( options ) {
-	    return {
-	      start: function( event, options ) {
-		    if(options.callback) {
-		        options.callback(this, options);
-		    } 
-	      },
-	      end: function( event, options ) {
-		if (options.endcallback) {
-		    options.endcallback(this, options);
-                } else {
-		    clear_text(this, options)
-		}
-	      }
-	    };
-	  });
-	  Popcorn.plugin( "shortener" , function( options ) {
-	    return {
-	      start: function( event, options ) {
-		  var version_larga = $('#version_larga');
-		  if(!version_larga.prop("checked")){
-	          	gotoAndPlay(options.start);
-                  }
-	      },
-	      end: function( event, options ) {
-		  var version_larga = $('#version_larga');
-                  if(!version_larga.prop("checked")){
-		      if(options.next_start) {
-	                  gotoAndPlay(options.next_start);
-		      } else {
-		          this.pause();
-		      }
-                  }
-	      }
-	    };
-	  });
-	    
-	})(Popcorn);
-
-    // ensure the DOM has loaded
-    document.addEventListener("DOMContentLoaded", function () {
-
-      // Create a popcporn instance by calling Popcorn("#id-of-my-video")
-      pop = Popcorn("#video");    
-      generateElements();
-      console.log(elements);
-      populate(pop, elements, loadElement);
-      populate_shortener(pop, chunks);
-    }, false);
-    /*
-    elements = [
-	{
-	    start: 0,
-	    end: 5,
-	    callback: change_text,
-	    title: "una historia",
-	    html: "una historia en <strong>HT&Ntilde;L5</strong>"
-	},
-	{
-	    start: 10,
-	    end: 12,
-	    callback: change_text,
-	    title: "amigos",
-	    html: "amigos"
-	},
-	{
-	    start: 25,
-	    end: 1000,
-	    callback: change_text,
-	    title: "personalizar",
-	    html: '<iframe src="http://www.elpais.es" style="width:650px;height:350px"></iframe><br><a href="#" onClick="showMaestro(0)">Ver video de maestro</a>'
-	}
-    ]*/
-
-    chunks = [
-	{
-	    start: 0,
-	    end: 5
-	},
-	{
-	    start: 10,
-	    end: 15
-	}
-    ]
-
-
-    </script>
+        .tweet, .tweet .avatar {
+	        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(opacity=40)";
+	        -moz-box-shadow:2px 2px 4px #000000;
+	        -webkit-box-shadow:2px 2px 4px #000000;
+        }
+        .tweet:after {
+	        content: ""; position: absolute; bottom: -13px; left: 47px; border-width: 13px 13px 0;
+	        border-style: solid; border-color: #fff transparent; display: block; width: 0; z-index: 2;
+        }
+        .tweet:before {
+	        content: ""; position: absolute; bottom: -20px; left: 40px; border-width: 20px 20px 0;
+	        border-style: solid; border-color: #2299cc transparent; display: block; width: 0; z-index: 2;
+        }
+        .tweet .avatar {
+		        width: 48px; height: 48px; position: absolute; left: 35px; bottom: -55px;
+		        border: 3px solid #fff; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px;
+		        border-top-color: #2299cc;
+        }
+        .tweet .tweep {
+	        position: absolute; bottom: -42px; left: 100px; text-shadow: 1px 1px 1px #000; font: bold 20px Arial; color: #fff;
+        }
+        .tweet .tweep:before { content: "@"; }
+        .tweet .text { z-index: 2; }
+    </style>
   </head>
   <body>
-
-    <video id="video" controls style="float:left;height:380px">
+    
+    <div id="overlay">
+    </div>
+    <video id="video" controls style="float:left;">
       <source src="./carlos.webm"></source>
     </video>
-
-    <div id="right" style="float:left;height:380px;width:600px"> </div>
-    <div style="clear:both"></div>
-    <div id="controls">
-        <label for="version_larga">Version larga</label>
-	<input type="checkbox" id="version_larga">
+    <div id="right" style="height:380px;width:600px;margin-left:515px;float:right"> </div>
+    <div style="position:absolute;margin-top:390px;">
+        <div id="controls">
+            <label for="version_larga">Version larga</label>
+	        <input type="checkbox" id="version_larga">
+            <label for="version_larga">Mostrar tweets</label>
+	        <input type="checkbox" id="mostrar_tweets" checked="checked">
+        </div>
+        <div id="thumbs"></div>
     </div>
-    <div id="thumbs"></div>
     
-
     <div id="slides" style="display:none">
+        <article data-from="5" data-to="13" data-type="tweet">
+            <div class="tweet">
+                hola, soy twitter
+            </div>
+        </article>
+
 	    <article data-from="1" data-to="15" data-type="slide">
+            <span>hola</span>
 	        <h2>&iquest;Hacia d&oacute;nde estamos yendo?</h2>
             <ul>
 	            <li>Auge de la conexi&oacute;n m&oacute;vil y el video</li>
@@ -200,6 +79,7 @@
 	            <li>La lucha por el contacto directo con el usuario</li>
             </ul>
             <p>
+                <a href="#" onClick="showMaestro()">Mostrar Maestro</a>
 	            <strong>Bio:</strong> Carlos Serrano es Comunicador Social y Periodista de la Universidad Pontificia Bolivariana de Medell&iacute;n. Actualmente es el Editor de Medios Interactivos de la Fundaci&oacute;n Nuevo Periodismo Iberoamericano.
             </p>
             <p>
@@ -210,6 +90,10 @@
                     <li><a href="http://twitter.com/#!/carliserrano">TWITTER</a></li>
 	            </ul>
             </p>
+        </article>
+        <article data-from="16" data-to="20" data-type="slide">
+            <span>esta mierda</span>
+	        <h2>&iquest;Funcioa?</h2>
         </article>
     </div>
 
