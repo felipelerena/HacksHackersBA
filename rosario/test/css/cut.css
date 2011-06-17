@@ -1,0 +1,13 @@
+.cut { position: absolute; width: 503px; height: 100%; background: #fff;
+	text-align: center;
+}
+.cut h2 {
+    margin-top: 100px;
+	color: #fff;
+    font: bold 30px Arial;
+    text-shadow: 1px 1px 3px #333;
+	-webkit-transition: color 1s ease-in;
+	-moz-transition: color 1s ease-in;
+	-o-transition: color 1s ease-in;
+	transition: color 1s ease-in;
+}

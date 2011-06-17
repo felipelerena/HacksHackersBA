@@ -1,0 +1,33 @@
+.tweet {
+	position: absolute; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; width: 320px;
+	bottom: -100px; left: 50px; z-index: 1; padding: 10px; font: normal 14px Arial; border:5px solid #2299cc; background: #fff;
+	-moz-transition-duration: 1s;
+	-moz-transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
+	-webkit-transition-duration: 1s;
+	-webkit-transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
+	transition-duration: 1s;
+	transition-timing-function: cubic-bezier(0.05, 1.4, 0.25, 1);
+}
+.tweet, .tweet .avatar {
+	-moz-box-shadow: 2px 2px 4px #000000;
+	-webkit-box-shadow: 2px 2px 4px #000000;
+	box-shadow: 2px 2px 4px #000000;
+}
+.tweet:after {
+	content: ""; position: absolute; bottom: -13px; left: 47px; border-width: 13px 13px 0;
+	border-style: solid; border-color: #fff transparent; display: block; width: 0; z-index: 2;
+}
+.tweet:before {
+	content: ""; position: absolute; bottom: -20px; left: 40px; border-width: 20px 20px 0;
+	border-style: solid; border-color: #2299cc transparent; display: block; width: 0; z-index: 2;
+}
+.tweet .avatar {
+		width: 48px; height: 48px; position: absolute; left: 35px; bottom: -55px;
+		border: 3px solid #fff; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px;
+		border-top-color: #2299cc;
+}
+.tweet .tweep {
+	position: absolute; bottom: -42px; left: 100px; text-shadow: 1px 1px 1px #000; font: bold 20px Arial; color: #fff;
+}
+.tweet .tweep:before { content: "@"; }
+.tweet .text { z-index: 2; }
