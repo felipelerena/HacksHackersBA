@@ -4,7 +4,7 @@ var elements = Array();
 function cronica(){
     $('#overlay').css('background', 'red');
     $('#overlay').css('z-index', '1');
-    $('#overlay').html('<span style="color:yellow">ultimo momento:</span><h1 style="text-align:center;color:white;margin-top:110px;padding:20px;">MUJER "TROLL" ARROJA LA CONSTITUCION A UN PERIODISTA EXTRANJERO</h1><audio autoplay src="./cronica.ogg" controls="controls" style="display:none"></audio>');
+    $('#overlay').html('<span style="color:yellow">ULTIMO MOMENTO:</span><h1 style="text-align:center;color:white;margin-top:110px;padding:20px;font-size:30px;text-shadow: 2px 2px 1px black;">MUJER "TROLL" ARROJA LA CONSTITUCION A UN PERIODISTA EXTRANJERO</h1><audio autoplay src="./cronica.ogg" controls="controls" style="display:none"></audio>');
 }
 
 function parseSlide(index, element){
